@@ -1,4 +1,8 @@
 import { useState } from "react";
+import CopyButton from "./CopyButton";
+import Icon from "./Icon";
+import PasswordContainer from "./PasswordContainer";
+import RangeInput from "./RangeInput";
 
 export default function GeneratePassword() {
   const [password, setPassword] = useState({
@@ -8,7 +12,7 @@ export default function GeneratePassword() {
     textToDisplayBasedOnLength: "Strong Password",
     iconToDisplayBasedOnLength: "fa-solid fa-anchor-circle-check",
   });
-  const [needLetters, setNeedletters] = useState(true);
+  const [needLetters, setNeedLetters] = useState(true);
   const [needNumbers, setNeedNumbers] = useState(true);
   const [needSymbols, setNeedSymbols] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -81,52 +85,16 @@ export default function GeneratePassword() {
         <h1 className="text-4xl mb-3 text-white">
           Generate passwords with our random password generator.
         </h1>
-        <div className="border-b-[1px] w-full">
-          <span className="text-2xl text-white w-9/12">
-            <code>
-              <input
-                type="text"
-                className="bg-transparent border-none outline-none w-full"
-                value={password.text}
-                readOnly
-              />
-            </code>
-          </span>
-        </div>
+        <PasswordContainer password={password} />
         <div className="flex w-full justify-between mt-6">
-          <span className="text-white">
-            <i className={password.iconToDisplayBasedOnLength}></i>{" "}
-            {password.textToDisplayBasedOnLength}
-          </span>
-          <button
-            className="bg-white rounded-md p-3 disabled:bg-gray-200 disabled:text-slate-600 disabled:cursor-not-allowed hover:bg-[#09363f] hover:text-white border-2"
-            onClick={() => {
-              navigator.clipboard.writeText(password.text);
-              setIsCopied(true);
-            }}
-            disabled={
-              password.text === "Play with the range to generate!"
-                ? true
-                : false
-            }
-          >
-            {isCopied ? "Copied!" : "Copy Password"}
-          </button>
-        </div>
-        <div className="w-full flex flex-col mt-8">
-          <label htmlFor="password-length-input" className="text-white mb-6">
-            Length ({password.length})
-          </label>
-          <input
-            type="range"
-            min={4}
-            max={40}
-            value={password.length}
-            className="rangeInput cursor-pointer bg-white rounded-lg appearance-none h-2"
-            onChange={(e) => handleChange(e)}
-            id="password-length-input"
+          <Icon password={password} />
+          <CopyButton
+            password={password}
+            isCopied={isCopied}
+            setIsCopied={setIsCopied}
           />
         </div>
+        <RangeInput password={password} handleChange={handleChange} />
         <div className="flex gap-4 mt-12 items-center">
           <label htmlFor="letters-checkbox" className="text-white">
             Letters (ie. Aa)
@@ -138,10 +106,10 @@ export default function GeneratePassword() {
             disabled={
               needLetters && !needNumbers && !needSymbols ? true : false
             }
-            onChange={() => setNeedletters((state) => !state)}
+            onChange={() => setNeedLetters((state) => !state)}
             className="checkbox"
           />
-          <label htmlFor="Numbers-checkbox" className="text-white">
+          <label htmlFor="numbers-checkbox" className="text-white">
             Numbers (ie. 345)
           </label>
           <input
@@ -154,7 +122,7 @@ export default function GeneratePassword() {
             defaultChecked={needNumbers}
             className="checkbox"
           />
-          <label htmlFor="Symbols-checkbox" className="text-white">
+          <label htmlFor="symbols-checkbox" className="text-white">
             Symbols (@$!#?)
           </label>
           <input
