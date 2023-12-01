@@ -31,7 +31,7 @@ export default function GeneratePassword() {
           passwordCharacters += "0123456789";
         }
         if (needSymbols) {
-          passwordCharacters += "@&$!#?";
+          passwordCharacters += "@&$!#?_-£!";
         }
       } else if (needNumbers) {
         passwordCharacters = "0123456789";
@@ -77,7 +77,7 @@ export default function GeneratePassword() {
   return (
     <div
       className={
-        "h-2/5 w-3/5 ml-auto mr-auto flex justify-center items-center flex-col gap-16 " +
+        "h-1/2 w-full ml-auto mr-auto flex justify-center items-center flex-col gap-16 " +
         password.backgroundColorBasedOnLength
       }
     >
