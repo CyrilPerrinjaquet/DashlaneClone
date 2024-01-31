@@ -77,12 +77,11 @@ export default function GeneratePassword() {
   return (
     <div
       className={
-        "h-1/2 w-full ml-auto mr-auto flex justify-center items-center flex-col gap-16 " +
+        "h-1/2 w-full ml-auto mr-auto flex justify-center items-center flex-col gap-16 smarthphone:h-full tablet:h-full " +
         password.backgroundColorBasedOnLength
-      }
-    >
-      <div className="w-4/5 mt-10">
-        <h1 className="text-4xl mb-3 text-white">
+      }>
+      <div className="w-4/5 mt-10 smarthphone:w-full smarthphone:pl-5 smarthphone:pr-5">
+        <h1 className="text-4xl mb-3 text-white small-smarthphone:text-[20px]">
           Generate passwords with our random password generator.
         </h1>
         <PasswordContainer password={password} />
@@ -95,7 +94,7 @@ export default function GeneratePassword() {
           />
         </div>
         <RangeInput password={password} handleChange={handleChange} />
-        <div className="flex gap-4 mt-12 items-center">
+        <div className="flex gap-4 mt-12 items-center small-smarthphone:flex-col small-smarthphone:mt-8">
           <label htmlFor="letters-checkbox" className="text-white">
             Letters (ie. Aa)
           </label>
